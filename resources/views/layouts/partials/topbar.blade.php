@@ -8,30 +8,39 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img src="{{ asset('assets/images/flags/us.jpg') }}" alt="" class="me-1" height="12"> English
+                    <img src="{{ asset('assets/images/flags/us.jpg') }}" alt="" class="me-1" height="12">
+                    English
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img src="{{ asset('assets/images/flags/france.jpg') }}" alt="" class="me-1" height="12"> Français
+                    <img src="{{ asset('assets/images/flags/france.jpg') }}" alt="" class="me-1"
+                        height="12"> Français
                 </a>
             </div>
         </li>
         <li class="dropdown notification-list">
-            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button">
-                <span class="account-user-avatar">
-                    <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="user" class="rounded-circle">
+            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
+                role="button">
+                <span class="account-user-avatar avatar-initials rounded-circle">
+                        {{ strtoupper(substr(Auth::user()->full_name, 0, 1)) }}{{ strtoupper(substr(explode(' ', Auth::user()->full_name)[1] ?? '', 0, 1)) }}
                 </span>
                 <span>
-                    <span class="account-user-name">Dominic Keller</span>
-                    <span class="account-position">Founder</span>
+                    <span class="account-user-name">{{ Auth::user()->full_name }}</span>
+                    <span class="account-position">{{ strtoupper(Auth::user()->role) }}</span>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-edit me-1"></i> Settings
                 </a>
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
+                <a href="#" class="dropdown-item notify-item"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout me-1"></i> Logout
                 </a>
+
             </div>
         </li>
     </ul>
